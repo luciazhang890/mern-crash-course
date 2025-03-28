@@ -3,6 +3,10 @@
 import express from 'express';
 const app = express();
 
-app.listen(5001, () => {
-    console.log('Server started at http://localhost:5001 hello');
+app.get('/', (req, res) => {
+    res.send('Server is ready123');
+});
+
+app.listen(5000, () => {
+    console.log("Server started at http://localhost:5000 ");
 });
