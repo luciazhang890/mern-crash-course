@@ -33,11 +33,11 @@ const Navbar = () => {
                 </Text>
 
                 <HStack spacing={2} alignItems={"center"}>
-                    <link to={"/create"}>
-                    <Button>
+                    
+                    <Button as={Link} to="/create">
                         <PlusSquareIcon fontSize={20}/>
                     </Button>
-                    </link>
+                    
 
                     <Button onClick={toggleColorMode}>{colorMode === "light" ? <IoMoon /> : <LuSun size="20" />}
                     </Button>
