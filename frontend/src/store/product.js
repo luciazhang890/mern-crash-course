@@ -35,7 +35,7 @@ export const useProductStore = create((set) => ({
         }
 
 
-        //update the ui immediately
+        //update the ui immediately without needing a refresh
         set((state) => ({
             products: state.products.filter((product) => product._id !== pid)
         }))
