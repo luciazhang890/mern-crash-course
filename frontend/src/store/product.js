@@ -34,6 +34,7 @@ export const useProductStore = create((set) => ({
         if(!data.success) {
             return {success: false, message: data.message}
         }
+        return {success: true, message: data.message}
 
     },    
     updateProduct: async (pid, updatedProduct) => {
