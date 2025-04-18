@@ -6,12 +6,17 @@ import { useProductStore } from '../store/product'
 import { IconButton, useToast } from '@chakra-ui/react'
 import { useState } from 'react'
 
+
+
+
+
+
 const ProductCard = ({product}) => {
     const [updatedProduct, setUpdatedProduct] = useState(product)
     const textColor = useColorModeValue("gray.600", "gray.200")
     const bg = useColorModeValue("white", "gray.800")
 
-    const {deleteProduct } = useProductStore()
+    const {deleteProduct ,updateProduct } = useProductStore()
     const toast = useToast()
     const {isOpen, onOpen, onClose} = useDisclosure()
 
@@ -36,7 +41,28 @@ const ProductCard = ({product}) => {
       }
     }
 
-  const handleUpdateProduct = async (pid, updatedProduct) => {  }
+  
+  const handleUpdateProduct = async (pid, updatedProduct) => { 
+    const {success, message} = await updateProduct(pid, updatedProduct)
+    onClose();
+    if(!success) {
+      toast({
+        title: "Error",
+        description: message,
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      })
+    } else {
+      toast({
+        title: "Success",
+        description: message,
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      })
+    }
+   }
 
   return (
     <Box
@@ -71,9 +97,12 @@ const ProductCard = ({product}) => {
           <ModalCloseButton />
           <ModalBody>
             <VStack spacing={4} >
-              <Input  placeholder='Product Name' name='name' value={updatedProduct.name} />
-              <Input placeholder='Price' name='price' type='number' value={updatedProduct.price} />
-              <Input placeholder='Image URL' name='image' value={updatedProduct.image} />
+              <Input  placeholder='Product Name' name='name' value={updatedProduct.name} 
+              onChange={(e) => setUpdatedProduct({ ...updatedProduct, name: e.target.value })}/>
+              <Input placeholder='Price' name='price' type='number' value={updatedProduct.price} 
+              onChange={(e) => setUpdatedProduct({ ...updatedProduct, price: e.target.value })} />
+              <Input placeholder='Image URL' name='image' value={updatedProduct.image} 
+              onChange={(e) => setUpdatedProduct({ ...updatedProduct, image: e.target.value })}/>
             </VStack>  
           </ModalBody>
 

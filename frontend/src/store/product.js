@@ -1,5 +1,6 @@
 import {create} from "zustand"
 
+
 export const useProductStore = create((set) => ({
     products: [],
     setProducts: (products) => set({ products }),
@@ -34,6 +35,7 @@ export const useProductStore = create((set) => ({
             return {success: false, message: data.message}
         }
 
+    },    
     updateProduct: async (pid, updatedProduct) => {
         const res = await fetch(`/api/products/${pid}`, {
             method: "PUT",
@@ -46,12 +48,14 @@ export const useProductStore = create((set) => ({
         if (!data.success) {
             return {success: false, message: data.message}
         }
-    }
+    
 
         //update the ui immediately without needing a refresh
         set((state) => ({
             products: state.products.map((product) => (product._id == pid? data.data : product))
         }))
+
+        return {success: true, message: data.message}
     }
         
     
